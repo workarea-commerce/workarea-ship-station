@@ -1,0 +1,20 @@
+en:
+  workarea:
+    admin:
+      orders:
+        attributes:
+          checkout:
+            ship_station_exported_at: Exported To ShipStation At
+            ship_station_order_id: ShipStation Order ID
+            ship_station_order_id: ShipStation Order ID
+            ship_station_on_hold_until: ShipStation Hold Until
+        clear_on_hold: Clear Order Hold
+        clear_on_hold_success: The order's hold has been cleared.
+        clear_on_hold_error: The order's hold could not be cleard. Please try again.
+        hold_until_date: Hold Until Date
+        hold_until_note: Setting a hold date will set this order's status to "on hold" in ShipStation.
+        on_hold_until: This order is currently on hold until %{date}
+        order_hold: Place %{id} on Hold
+        place_on_hold: Place Order on Hold
+        placed_on_hold_success: The order has been placed on hold.
+        placed_on_hold_error: The order could not be placed on hold. Please try again.

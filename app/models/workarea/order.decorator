@@ -1,0 +1,25 @@
+module Workarea
+  decorate Order, with: :ship_station do
+    decorated do
+      field :ship_station_order_id, type: String
+      field :ship_station_exported_at, type: Time
+      field :ship_station_on_hold_until, type: Time
+
+      index({ ship_station_order_id: 1}, { background: true })
+    end
+
+    def ship_station_exported?
+      !!ship_station_exported_at
+    end
+
+    def ship_station_on_hold?
+      !!ship_station_on_hold_until
+    end
+
+    def set_ship_station_exported_at!
+      update!(
+        ship_station_exported_at: Time.current
+      )
+    end
+  end
+end

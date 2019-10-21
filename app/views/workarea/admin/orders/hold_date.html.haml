@@ -1,0 +1,27 @@
+- @page_title = @order.name
+
+.view
+  .view__header
+    .grid.grid--middle.grid--right
+      .grid__cell.grid__cell--50
+        .view__heading
+          = link_to_index_for(@order)
+          %h1= t('workarea.admin.orders.order_hold', id: @order.name)
+      .grid__cell.grid__cell--25
+        = render_aux_navigation_for(@order)
+
+  .view__container.view__container--narrow
+    .grid
+      .grid__cell.grid__cell--80
+        %p= t('workarea.admin.orders.hold_until_note')
+
+        - if @order.ship_station_on_hold?
+          %strong= t('workarea.admin.orders.on_hold_until', date: @order.ship_station_on_hold_until.try(:to_s, :date_only))
+
+        = form_tag save_hold_date_order_path, method: 'patch' do
+          .property__name
+            = label_tag 'hold_until', t('workarea.admin.orders.hold_until_date'), class: 'property__name'
+            = datetime_picker_tag 'hold_until', @order.ship_station_on_hold_until.try(:to_s, :date_only), class: 'text-box text-box', data: { datepicker_field: { } }
+          .workflow-bar
+            .grid.grid--auto.grid--right.grid--middle
+              .grid__cell= button_tag t('workarea.admin.orders.place_on_hold'), value: 'place_on_hold', class: 'workflow-bar__button workflow-bar__button--create'

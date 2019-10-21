@@ -1,0 +1,7 @@
+- if @order.ship_station_order_id.present?
+  .grid__cell
+    %button.workflow-bar__button= link_to t('workarea.admin.orders.place_on_hold'), hold_date_order_path
+  - if @order.ship_station_on_hold?
+    .grid__cell
+      = form_tag clear_hold_date_order_path, method: :patch do
+        %button.workflow-bar__button{ type: :submit }= t('workarea.admin.orders.clear_on_hold')
