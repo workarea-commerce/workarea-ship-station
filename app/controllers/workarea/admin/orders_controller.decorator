@@ -1,0 +1,50 @@
+module Workarea
+  decorate Admin::OrdersController, with: :ship_station do
+
+    def save_hold_date
+      response = Workarea::ShipStation.gateway.hold_order(ship_station_hold_attrs)
+
+      if response.success?
+        @order.update_attributes!(ship_station_on_hold_until: params[:hold_until])
+
+        flash[:success] = t('workarea.admin.orders.placed_on_hold_success')
+        redirect_to order_path(@order)
+      else
+        flash[:error] = t('workarea.admin.orders.placed_on_hold_error')
+        render :select_hold_date
+      end
+    end
+
+    def clear_hold_date
+      response = Workarea::ShipStation.gateway.clear_hold_order(ship_station_clear_hold_attrs)
+
+      if response.success?
+        @order.update_attributes!(ship_station_on_hold_until: nil)
+
+        flash[:success] = t('workarea.admin.orders.clear_on_hold_success')
+        redirect_to order_path(@order)
+      else
+        flash[:error] =  t('workarea.admin.orders.clear_on_hold_error')
+        render :select_hold_date
+      end
+    end
+
+    def select_hold_date
+    end
+
+    private
+
+    def ship_station_hold_attrs
+      {
+        orderId: @order.ship_station_order_id,
+        holdUntilDate: params[:hold_until]
+      }
+    end
+
+    def ship_station_clear_hold_attrs
+      {
+        orderId: @order.ship_station_order_id
+      }
+    end
+  end
+end

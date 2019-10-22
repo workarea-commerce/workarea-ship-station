@@ -13,8 +13,13 @@ require "action_view/railtie"
 require "sprockets/railtie"
 require "rails/test_unit/railtie"
 
+# Workarea must be required before other gems to ensure control over Rails.env
+# for running tests
+require 'workarea/core'
+require 'workarea/admin'
+require 'workarea/storefront'
 Bundler.require(*Rails.groups)
-require "ship_station"
+require "workarea/ship_station"
 
 module Dummy
   class Application < Rails::Application
@@ -27,4 +32,3 @@ module Dummy
     # the framework and any gems in your application.
   end
 end
-

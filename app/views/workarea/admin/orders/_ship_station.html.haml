@@ -1,0 +1,12 @@
+%li
+  %strong= t('workarea.admin.orders.attributes.checkout.ship_station_exported_at')
+  - if @order.ship_station_exported?
+    = local_time_ago(@order.ship_station_exported_at)
+  - else
+    "-"
+%li
+  %strong= t('workarea.admin.orders.attributes.checkout.ship_station_order_id')
+  = @order.ship_station_order_id.presence || "-"
+%li
+  %strong= t('workarea.admin.orders.attributes.checkout.ship_station_on_hold_until')
+  = @order.ship_station_on_hold_until.presence || "-"
