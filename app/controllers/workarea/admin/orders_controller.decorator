@@ -11,7 +11,7 @@ module Workarea
         redirect_to order_path(@order)
       else
         flash[:error] = t('workarea.admin.orders.placed_on_hold_error')
-        render :select_hold_date
+        render :hold_date
       end
     end
 
@@ -25,11 +25,11 @@ module Workarea
         redirect_to order_path(@order)
       else
         flash[:error] =  t('workarea.admin.orders.clear_on_hold_error')
-        render :select_hold_date
+        render :hold_date
       end
     end
 
-    def select_hold_date
+    def hold_date
     end
 
     private

@@ -20,6 +20,22 @@ module Workarea
         assert(order.ship_station_on_hold_until.present?)
       end
 
+      def test_setting_order_on_hold_error
+        order = create_placed_order
+
+        hold_date = "xxxxx"
+        patch admin.save_hold_date_order_path(order),
+          params: {
+            hold_until: hold_date
+          }
+
+        order.reload
+
+        refute(order.ship_station_on_hold?)
+        refute(order.ship_station_on_hold_until.present?)
+      end
+
+
       def test_clearing_order_hold
         order = create_placed_order(ship_station_on_hold_until: 1.day.from_now)
 
